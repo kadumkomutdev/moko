@@ -1,0 +1,38 @@
+
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+i{
+    cursor: pointer;
+}
+
+body {
+    height:100vh;
+    overflow: hidden;
+	background: #7393ad;
+    font-family:  Arial;
+}
+
+.watermark {
+	width:100vw;
+	height: 100vh;
+	background: #4a6e8b;
+	color:white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.watermark > h1 {
+	font-size:80px;
+}
+
+.watermark > p {
+	font-size: 16px;
+	margin-top:20px;
+	color:rgb(229, 226, 226);
+}

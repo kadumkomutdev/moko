@@ -1,0 +1,69 @@
+.developer-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 70%;
+    margin: auto;
+    margin-top: 30px;
+
+    .developer-image {
+        flex-grow: 1;
+        max-width: 400px;
+        
+    }
+    .developer-intro {
+        flex-grow: 3;
+        align-self: flex-start;
+        padding: 15px; 
+        font-size: 1.4rem;       
+    }
+}
+
+.developer-name-big {
+    font-size: 50px;
+    h1 {
+        padding: 10px;
+    }
+    i {
+        font-size:60px;
+    }
+}
+.social-icons {
+    width:400px;
+    margin:auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background:white;
+    padding:6px;
+    cursor: pointer;
+
+    a{
+        img {
+            width:40px;
+            height: 40px;
+            margin-right: 5px;
+        }
+    }
+    
+}
+
+
+
+@media screen and (max-width: 1400px) {
+    .developer-main {        
+        .developer-intro{
+            display: none;
+        }
+    }
+}
+// for the top big font
+@media screen and (max-width:1159px){
+    .developer-name-big {
+        font-size: 50px;
+    }
+}
+
+//---------------------
+

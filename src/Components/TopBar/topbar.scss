@@ -1,0 +1,72 @@
+$dark_color : #4a6e8b;
+$light_color : #7393ad;
+
+.top-bar {
+    width:100%;
+    padding:4px; 
+    color:white;
+    min-width: 900px;
+    min-height: 58px;
+
+    .main-bar {
+        display:flex;
+        justify-content: space-between;
+        width:90%;
+        align-items: center;
+        margin:auto;
+
+        .logo-container {
+            flex-grow:1;
+            align-self: center;
+            font-family: 'Krona One', sans-serif;
+            color:$dark_color;
+            span {
+                color:white;
+            }
+        }
+        header {
+            nav {
+                ul {
+                    display: flex;
+                    justify-content: space-evenly;
+                    list-style: none;
+                    
+                    li {
+                        padding:10px;
+                        padding-right:40px;
+                        font-weight: bold;
+                        font-size: 1.3rem;
+                        .val {
+                            position: relative;
+                            span {
+                                color:white;
+                                position: absolute;
+                                background:red;
+                                line-height: 20px;
+                                font-size: 0.9rem;
+                                text-align: center;
+                                width:20px;
+                                height: 20px;
+                                left:14px;
+                                top:-5px;
+                                border-radius: 50%;
+                            }
+                        }
+                        &:hover {
+                            cursor: pointer;
+                            color:$dark_color;
+                        }
+                        .nav_link {
+                            color:white;
+                            text-decoration: none;
+                        }
+                        .nav_link:hover {
+                                color:$dark_color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,47 @@
+.main-tictactoe {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+.main-tictactoe .waiting {
+  padding: 100px 0px;
+}
+
+.tictactoe-board div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 50px;
+  font-weight: bolder;
+  color: #4a6e8b;
+}
+
+.tictactoe-board div:hover p {
+  display: block;
+}
+
+.tictactoe-board div:hover {
+  cursor: pointer;
+}
+
+.tictactoe-board div p {
+  display: none;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+
+.glowX {
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00e660, 0 0 40px #00e60c, 0 0 50px #00e64d, 0 0 60px #00e658, 0 0 70px #00e645;
+}
+
+.glowY {
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+}
+/*# sourceMappingURL=style.css.map */

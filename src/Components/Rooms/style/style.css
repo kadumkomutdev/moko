@@ -1,0 +1,170 @@
+.room-section {
+  width: 95%;
+  margin: auto;
+  min-width: 700px;
+  height: 88vh;
+  background: white;
+}
+
+.room-section .display-rooms {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.room-section .display-rooms .room-left {
+  position: absolute;
+  left: 0px;
+  height: 88vh;
+  width: 300px;
+  overflow-y: auto;
+}
+
+.room-section .display-rooms .room-left li:hover {
+  cursor: pointer;
+}
+
+.room-section .display-rooms .room-left .room-hover-show {
+  visibility: hidden;
+}
+
+.room-section .display-rooms .room-left li:hover .room-hover-show {
+  visibility: visible;
+}
+
+.room-section .display-rooms .room-right {
+  height: 88vh;
+  margin-left: 300px;
+  width: 100%;
+  position: relative;
+}
+
+.room-section .display-rooms .room-right .right-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow-y: auto;
+  height: 88vh;
+}
+
+.room-section .display-rooms .room-right .right-content .right-top {
+  width: 100%;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle {
+  -webkit-box-flex: 3;
+      -ms-flex-positive: 3;
+          flex-grow: 3;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 3;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .message .para {
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  max-width: 500px;
+  letter-spacing: 1px;
+  -webkit-transition: ease-in 0.5s linear;
+  transition: ease-in 0.5s linear;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .message img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 2px 5px;
+  margin-top: -20px;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .sent {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  color: white;
+  z-index: 3;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .sent .para {
+  background: #7393ad;
+  border-top-right-radius: 0px;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .recieve {
+  color: black;
+  z-index: 3;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .recieve .para {
+  background: white;
+  border-top-left-radius: 0px;
+}
+
+.room-section .display-rooms .room-right .right-content .showGroup-input {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0px;
+  padding: 10px 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.room-section .display-rooms .room-right .right-content .showGroup-input form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.room-section .display-rooms .room-right .right-content .showGroup-input form input:focus {
+  outline-color: lightblue;
+  outline-style: solid;
+}
+
+.showHeader-grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  grid-gap: 10px;
+  padding: 20px;
+}
+
+@media screen and (max-width: 1098px) {
+  .showHeader-grid {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .room-section {
+    width: 100%;
+    height: 92vh;
+  }
+}
+/*# sourceMappingURL=style.css.map */

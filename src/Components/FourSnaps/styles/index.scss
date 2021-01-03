@@ -1,0 +1,44 @@
+.four-section {
+    width:95%;
+    height:88vh;
+    background: rgb(230, 221, 221);
+    margin: auto;
+    padding:20px;
+    .four-header{
+        text-align: center;
+        height: 70vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color:#4a6e8b;
+        font-size:50px;
+        font-weight: bold;
+        width: 50%;
+        margin:auto;
+
+        span {
+            background: #4a6e8b;
+            color:white;
+            padding:10px 10px;
+            border-radius: 20px;
+        }
+        
+        h3{
+            font-size:30px;
+            color:white;
+            border-radius: 15px;
+            background: grey;
+            padding:10px;
+            margin-top:50px;
+        }
+        
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .four-section{
+        width: 100%;
+    }
+  }

@@ -1,0 +1,82 @@
+.developer-main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 70%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.developer-main .developer-image {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  max-width: 400px;
+}
+
+.developer-main .developer-intro {
+  -webkit-box-flex: 3;
+      -ms-flex-positive: 3;
+          flex-grow: 3;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  padding: 15px;
+  font-size: 1.4rem;
+}
+
+.developer-name-big {
+  font-size: 50px;
+}
+
+.developer-name-big h1 {
+  padding: 10px;
+}
+
+.developer-name-big i {
+  font-size: 60px;
+}
+
+.social-icons {
+  width: 400px;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: white;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.social-icons a img {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 1400px) {
+  .developer-main .developer-intro {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1159px) {
+  .developer-name-big {
+    font-size: 50px;
+  }
+}
+/*# sourceMappingURL=Developer.css.map */

@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+
+.Signup {
+	/* border: 2px solid white; */
+	margin: auto;
+  height:100vh;
+  display: flex;
+  align-items: center;
+  width: 98%;
+  max-width:550px;
+}
+
+.signup-logo{
+	font-family: 'Krona One', sans-serif;
+	letter-spacing:7px;
+  color:white; 
+  padding:10px;
+  background-color: #4a6e8b;
+}
+
+
+
+
+/* style the container */
+.container {
+  position: relative;
+  border-radius: 5px;
+  background-color: rgb(250, 242, 242);
+  height: 300px;
+  overflow-y:auto;
+ padding:20px;
+} 
+.signup_container {
+
+  -webkit-box-shadow: 2px -1px 37px 4px rgba(240, 231, 231, 0.178);
+	-moz-box-shadow: 2px -1px 37px 4px rgba(233, 215, 215, 0.178);
+  box-shadow: 2px -1px 37px 4px rgba(235, 225, 225, 0.178);
+  border-radius: 50px;
+}
+
+/* style inputs and link buttons */
+
+.btn {
+  padding:20px 0px;
+  display: inline-block;
+  font-size: 17px;
+  text-align: center;
+}
+
+
+
+
+/* Two-column 
+
+
+/* Clear floats after the columns */
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* bottom container */
+.bottom-container {
+  background-color: #4a6e8b;
+  border-radius: 0px 0px 4px 4px;
+  color:white;
+}
+
+
+.Bottomcol{
+  float: left;
+  text-align: center;
+  width: 25%;
+  margin: auto;
+  padding: 0 50px;
+  cursor: pointer;
+}
+.Bottomcol:hover {
+  background-color:rgb(56, 98, 161);
+}
+
+
+footer {
+	position: fixed;
+  bottom:10px;
+  font-size:0.9rem;
+  right:5px;
+  font-weight: bold;
+}
+
+
+/* Responsive layout - when the screen is less than 650px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 650px) {
+
+  .col {
+    width: 100%;
+    margin-top: 0;
+  }
+  /* hide the vertical line */
+  .vl {
+    display: none;
+  }
+  /* show the hidden text on small screens */
+  .hide-md-lg {
+    display: block;
+    text-align: center;
+  }
+  footer {
+    left:30%;
+  }
+  footer.right {
+    left:50%;
+  }
+}
+

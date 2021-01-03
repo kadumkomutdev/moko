@@ -1,0 +1,54 @@
+.four-section {
+  width: 95%;
+  height: 88vh;
+  background: #e6dddd;
+  margin: auto;
+  padding: 20px;
+}
+
+.four-section .four-header {
+  text-align: center;
+  height: 70vh;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: #4a6e8b;
+  font-size: 50px;
+  font-weight: bold;
+  width: 50%;
+  margin: auto;
+}
+
+.four-section .four-header span {
+  background: #4a6e8b;
+  color: white;
+  padding: 10px 10px;
+  border-radius: 20px;
+}
+
+.four-section .four-header h3 {
+  font-size: 30px;
+  color: white;
+  border-radius: 15px;
+  background: grey;
+  padding: 10px;
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 1440px) {
+  .four-section {
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=index.css.map */

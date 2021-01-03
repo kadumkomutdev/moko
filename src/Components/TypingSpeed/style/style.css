@@ -1,0 +1,259 @@
+.typingspeed-section {
+  width: 95%;
+  height: 88vh;
+  margin: auto;
+  overflow-y: auto;
+}
+
+.typingspeed-section h1 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.typingspeed-section .typingspeed-start {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  margin-top: 40px;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(138, 33, 33, 0.575);
+          box-shadow: 0px 0px 15px 0px rgba(138, 33, 33, 0.575);
+}
+
+.typingspeed-section .typingspeed-start button {
+  -webkit-transition: color 0.15s ease-in-out 0s, background-color 0.15s ease-in-out 0s, border-color 0.15s ease-in-out 0s,-webkit-box-shadow 0.15s ease-in-out 0s;
+  transition: color 0.15s ease-in-out 0s, background-color 0.15s ease-in-out 0s, border-color 0.15s ease-in-out 0s,-webkit-box-shadow 0.15s ease-in-out 0s;
+  transition: color 0.15s ease-in-out 0s, background-color 0.15s ease-in-out 0s, border-color 0.15s ease-in-out 0s,box-shadow 0.15s ease-in-out 0s;
+  transition: color 0.15s ease-in-out 0s, background-color 0.15s ease-in-out 0s, border-color 0.15s ease-in-out 0s,box-shadow 0.15s ease-in-out 0s, -webkit-box-shadow 0.15s ease-in-out 0s;
+}
+
+.typingspeed-section .typingspeed-board-main {
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: 'wpm   board board  timer' 'cpm inputText inputText   error' 'lastScore  inputText inputText accuracy';
+  grid-gap: 30px;
+  width: 90%;
+  margin: auto;
+  margin-top: 50px;
+  -ms-grid-columns: 1fr 2fr 2fr 1fr;
+      grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-auto-rows: aut-fit;
+}
+
+.typingspeed-section .typingspeed-board-main .item {
+  background: #222;
+  color: grey;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 10px;
+}
+
+.typingspeed-section .typingspeed-board-main .item p {
+  font-weight: bold;
+  font-size: 40px;
+  color: lightgrey;
+}
+
+.typingspeed-section .typingspeed-board-main .typingGrid-1 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: wpm;
+}
+
+.typingspeed-section .typingspeed-board-main .typingGrid-2 {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: cpm;
+}
+
+.typingspeed-section .typingspeed-board-main .typingGrid-3 {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: lastScore;
+}
+
+.typingspeed-section .typingspeed-board-main .typingGrid-4 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 4;
+  grid-area: timer;
+}
+
+.typingspeed-section .typingspeed-board-main .typingGrid-5 {
+  -ms-grid-row: 2;
+  -ms-grid-column: 4;
+  grid-area: error;
+}
+
+.typingspeed-section .typingspeed-board-main .typingGrid-6 {
+  -ms-grid-row: 3;
+  -ms-grid-column: 4;
+  grid-area: accuracy;
+}
+
+.typingspeed-section .typingspeed-board-main .typingGrid-7 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 2;
+  grid-area: board;
+}
+
+.typingspeed-section .typingspeed-board-main .typingGrid-8 {
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 2;
+  grid-area: inputText;
+}
+
+.typingspeed-section .typingspeed-board-main .over {
+  -webkit-animation: border-pulse 2s infinite;
+          animation: border-pulse 2s infinite;
+}
+
+.typingspeed-section .typingspeed-board-main .typingspeed-text {
+  background-color: #222;
+  font-size: 2.75rem;
+  font-family: "Cutive Mono", "Courier New", monospace;
+  white-space: pre;
+  padding: .75rem 1rem;
+  color: #7e6f6f;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+  min-height: 5.75rem;
+  border-radius: .25rem;
+  position: relative;
+  -webkit-box-shadow: 0 0 3px 0.15rem #17a81b;
+          box-shadow: 0 0 3px 0.15rem #17a81b;
+  outline: 0;
+}
+
+.typingspeed-section .typingspeed-board-main .typingspeed-text:focus {
+  -webkit-box-shadow: 0 0 20px 0.15rem #e93211;
+          box-shadow: 0 0 20px 0.15rem #e93211;
+}
+
+.typingspeed-section .typingspeed-board-main .typingspeed-text::after {
+  content: '';
+  position: absolute;
+  width: 1.5rem;
+  height: 0.3rem;
+  background: #fff;
+  left: 1rem;
+  top: 4rem;
+  animation: flash 0.7s infinite;
+  -webkit-animation: flash 0.7s infinite;
+}
+
+.typingspeed-section .typingspeed-board-main .typingspeed-form {
+  width: 100%;
+  padding: 20px 10px;
+  font-size: 1.3rem;
+}
+
+@-webkit-keyframes flash {
+  0% {
+    background: #fff;
+  }
+  40% {
+    background: #222;
+  }
+  100% {
+    background: #fff;
+  }
+}
+
+@keyframes flash {
+  0% {
+    background: #fff;
+  }
+  50% {
+    background: #222;
+  }
+  100% {
+    background: #fff;
+  }
+}
+
+.btn-circle {
+  color: #28a745;
+  border-color: #28a745;
+  background: transparent;
+  border-radius: 50%;
+  border: 2px solid #28a745;
+  width: 70px;
+  height: 70px;
+  outline: 0;
+  padding: 0;
+  font-weight: bold;
+  -webkit-animation: border-pulse 2s infinite;
+          animation: border-pulse 2s infinite;
+}
+
+.btn-circle:hover {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+  cursor: pointer;
+  -webkit-transition: all 0.6s linear;
+  transition: all 0.6s linear;
+}
+
+.btn-circle:focus {
+  outline: 0;
+}
+
+@-webkit-keyframes border-pulse {
+  0% {
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(138, 33, 33, 0.575);
+            box-shadow: 0px 0px 15px 0px rgba(138, 33, 33, 0.575);
+  }
+  50% {
+    -webkit-box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0);
+            box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(138, 33, 33, 0.575);
+            box-shadow: 0px 0px 15px 0px rgba(138, 33, 33, 0.575);
+  }
+}
+
+@keyframes border-pulse {
+  0% {
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(138, 33, 33, 0.575);
+            box-shadow: 0px 0px 15px 0px rgba(138, 33, 33, 0.575);
+  }
+  50% {
+    -webkit-box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0);
+            box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(138, 33, 33, 0.575);
+            box-shadow: 0px 0px 15px 0px rgba(138, 33, 33, 0.575);
+  }
+}
+
+.typingspeed-ranking {
+  max-width: 500px;
+  margin: auto;
+}
+
+.typingspeed-ranking .typingspeed-ranking-container {
+  width: 100%;
+  padding: 20px 60px;
+}
+/*# sourceMappingURL=style.css.map */
