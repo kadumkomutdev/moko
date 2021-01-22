@@ -32,7 +32,7 @@
 .typingspeed-section .typingspeed-board-main {
   display: -ms-grid;
   display: grid;
-      grid-template-areas: 'wpm   board board  timer' 'cpm inputText inputText   error' 'lastScore  inputText inputText accuracy';
+      grid-template-areas: 'progress progress progress progress' 'wpm   board board  timer' 'cpm inputText inputText   error' 'lastScore  inputText inputText accuracy';
   grid-gap: 30px;
   width: 90%;
   margin: auto;
@@ -68,51 +68,60 @@
   color: lightgrey;
 }
 
-.typingspeed-section .typingspeed-board-main .typingGrid-1 {
+.typingspeed-section .typingspeed-board-main .typingGrid-0 {
   -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-area: progress;
+  width: 100%;
+  overflow: hidden;
+}
+
+.typingspeed-section .typingspeed-board-main .typingGrid-1 {
+  -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: wpm;
 }
 
 .typingspeed-section .typingspeed-board-main .typingGrid-2 {
-  -ms-grid-row: 2;
+  -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: cpm;
 }
 
 .typingspeed-section .typingspeed-board-main .typingGrid-3 {
-  -ms-grid-row: 3;
+  -ms-grid-row: 4;
   -ms-grid-column: 1;
   grid-area: lastScore;
 }
 
 .typingspeed-section .typingspeed-board-main .typingGrid-4 {
-  -ms-grid-row: 1;
+  -ms-grid-row: 2;
   -ms-grid-column: 4;
   grid-area: timer;
 }
 
 .typingspeed-section .typingspeed-board-main .typingGrid-5 {
-  -ms-grid-row: 2;
+  -ms-grid-row: 3;
   -ms-grid-column: 4;
   grid-area: error;
 }
 
 .typingspeed-section .typingspeed-board-main .typingGrid-6 {
-  -ms-grid-row: 3;
+  -ms-grid-row: 4;
   -ms-grid-column: 4;
   grid-area: accuracy;
 }
 
 .typingspeed-section .typingspeed-board-main .typingGrid-7 {
-  -ms-grid-row: 1;
+  -ms-grid-row: 2;
   -ms-grid-column: 2;
   -ms-grid-column-span: 2;
   grid-area: board;
 }
 
 .typingspeed-section .typingspeed-board-main .typingGrid-8 {
-  -ms-grid-row: 2;
+  -ms-grid-row: 3;
   -ms-grid-row-span: 2;
   -ms-grid-column: 2;
   -ms-grid-column-span: 2;
@@ -254,6 +263,6 @@
 
 .typingspeed-ranking .typingspeed-ranking-container {
   width: 100%;
-  padding: 20px 60px;
+  border-radius: 10px;
 }
 /*# sourceMappingURL=style.css.map */

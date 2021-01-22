@@ -25,7 +25,8 @@
 
     .typingspeed-board-main {
         display: grid;
-        grid-template-areas:'wpm   board board  timer'
+        grid-template-areas:'progress progress progress progress'
+                            'wpm   board board  timer'
                             'cpm inputText inputText   error'
                             'lastScore  inputText inputText accuracy'
                             ;
@@ -51,6 +52,11 @@
                 font-size: 40px;
                 color: lightgrey ;
             }
+        }
+        .typingGrid-0 {
+            grid-area: progress;
+            width:100%;
+            overflow:hidden;
         }
         .typingGrid-1 {
             grid-area: wpm;
@@ -195,7 +201,7 @@
 .typingspeed-ranking {
     .typingspeed-ranking-container {
         width:100%;
-        padding:20px 60px;
+        border-radius: 10px;
     }
     max-width: 500px;
     margin:auto;

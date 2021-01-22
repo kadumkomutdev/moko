@@ -1,5 +1,7 @@
 import React,{useContext} from 'react'
 import { FirebaseContext } from '../Firebase';
+import Linkify from 'react-linkify';
+
 
 const ShowMessage = ({msg,from,photo,name}) =>{
     const firebase = useContext(FirebaseContext);
@@ -10,7 +12,9 @@ const ShowMessage = ({msg,from,photo,name}) =>{
             <img src={photo} alt="message"/>
             <div className="para">
                 <p className={`${usernameClass}`} style={{fontWeight:"bolder",fontSize:"14px"}}><b>{name}</b></p>
-                {msg} 
+                <Linkify>
+                    {msg}
+                </Linkify> 
             </div>   
                
         </div>

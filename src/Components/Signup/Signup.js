@@ -79,7 +79,7 @@ const Signup = ()=> {
                         photo : auth.currentUser.photoURL,
                         email : auth.currentUser.email,
 					}) // create the document
-					batch.set(notificationCount,{count : 0});
+					batch.set(notificationCount,{count : 0,chatCount:0,roomCount:0,typingCount:0,broadcastCount:0,requestCount:0});
 					batch.commit().catch(error=>{
 						firebaseInstance.doSignOut();
 					})
@@ -172,9 +172,10 @@ const About = () =>{
 			provides the <b>Best Security</b> known.
 			</p>
 			<p>You can do much more than <b>Messaging</b>, like <b>Creating rooms</b> with your <b>favorite contacts</b>, uploading pictures of 4 and a word
-				which you might have guessed is a version of <b>4 Snaps</b>.
+				which you might have guessed is a version of <b>4 Snaps</b>.<b>Interactivity</b> at its best powered by <b>React's</b> powerfull components to render your <b>Perfect</b> needs.
 			</p>
-			<p><b>Interactivity</b> at its best powered by <b>React's</b> powerfull components to render your <b>Perfect</b> needs.</p>
+			<p></p>
+			<p>And yes, <b>MESSAGES ARE ENCRYPTED!</b></p>
 			<h4 style={{marginTop:"8px"}} className="w3-center w3-padding-large w3-orange w3-text-white">Hope You Have A Good Experience with us!</h4>
 		</div>
 	);
@@ -211,7 +212,7 @@ const Team = () =>{
       <img src={kadum} className="w3-bar-item w3-circle" alt="kadum komut" width="70px" height="70px"/>
       <div className="w3-bar-item" style={{marginTop:"4px"}}>
         <span className="w3-xlarge w3-text-dark"><b>KADUM KOMUT</b></span><br/>
-        <span className="w3-text-grey">Programmer</span>
+        <span className="w3-text-grey">Developer</span>
       </div>
     </li>
 
@@ -222,7 +223,7 @@ const Team = () =>{
       <img src={mohit} className="w3-bar-item w3-circle" alt="mohit pal" width="70px" height="70px"  />
       <div className="w3-bar-item" style={{marginTop:"4px"}}>
         <span className="w3-xlarge w3-text-dark"><b>MOHIT PAL</b></span><br/>
-        <span className="w3-text-grey ">Programmer</span>
+        <span className="w3-text-grey ">Developer</span>
       </div>
     </li>
 
@@ -233,7 +234,7 @@ const Team = () =>{
       <img src={mishra} className="w3-bar-item w3-circle" alt="akshay mishra" width="70px" height="70px" />
       <div className="w3-bar-item" style={{marginTop:"4px"}}>
         <span className="w3-xlarge w3-text-dark"><b>AKSHAY MISHRA</b></span><br/>
-        <span className="w3-text-grey">Programmer</span>
+        <span className="w3-text-grey">Developer</span>
       </div>
     </li>
   </ul>

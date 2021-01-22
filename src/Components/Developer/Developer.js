@@ -19,16 +19,17 @@ export default function Developer({history,location}) {
     const [git,setGit] = useState(null);
     const [go,setGo] = useState(null);
 
-    var kadumIntro = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et velit eget magna facilisis rutrum"+
-    "non ac lectus. Cras blandit consequat nunc et consectetur. Nunc nec lorem consectetur, euismod nisi faucibus"+
-    ", suscipit quam. Sed malesuada venenatis viverra. Praesent molestie blandit eleifend. Integer nec dignissim lectus,";
-    var mohitIntro = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et velit eget magna facilisis rutrum"+
-    "non ac lectus. Cras blandit consequat nunc et consectetur. Nunc nec lorem consectetur, euismod nisi faucibus"+
-    ", suscipit quam. Sed malesuada venenatis viverra. Praesent molestie blandit eleifend. Integer nec dignissim lectus,";
+    var kadumIntro = "is one of the original developers that worked on the moko, designing its interface and functionality.\n"+
+    "He has an eye for analysing things and it helped moko to be great at providing better user experience."+
+    "Things he likes to do in his spare time is to play chess, play guitar while singing, read books, watch movies and sleep a lot.";
+    var mohitIntro = "is one of the original developers that worked on the moko, designing its interface and functionality."+
+    "His eye for seeing the posibilites a product can have shaped the features of moko to be unique and divergent."+
+    "Some of the things he does in his spare time is to listen to music, reading books and learning things.";
 
-    var akshayIntro = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et velit eget magna facilisis rutrum"+
-                        "non ac lectus. Cras blandit consequat nunc et consectetur. Nunc nec lorem consectetur, euismod nisi faucibus"+
-                        ", suscipit quam. Sed malesuada venenatis viverra. Praesent molestie blandit eleifend. Integer nec dignissim lectus,";
+    var akshayIntro = "joined late on the moko developers team but played a vital role in the progress of the new functionalities"+
+                        " that were added after moko was launched."+
+                        "His work ethics and forseeing the future of moko helped it provide better user experience."+
+                        "He does like reading things and learning new stuffs.";
 
     useEffect(()=>{
         const path = location.pathname.slice(1,location.pathname.length);
@@ -60,7 +61,7 @@ export default function Developer({history,location}) {
     <div>
         <div className=" w3-center developer-name-big">
             <h1 className="w3-dark">
-                <i className="fas fa-arrow-alt-circle-left w3-margin-right" onClick={()=>history.goBack()}></i> 
+                <i className="fas fa-arrow-alt-circle-left icon w3-margin-right" onClick={()=>history.goBack()}></i> 
                  {name}<span className=" w3-large w3-text-orange">Developer</span>
             </h1>
         </div>
@@ -78,7 +79,7 @@ export default function Developer({history,location}) {
                 </div>
             </div>
             <div className="developer-intro w3-text-grey">
-                <p><b className="w3-text-orange">{name} </b> {intro} {intro} {intro}</p>
+                <p><b className="w3-text-orange">{name} </b> {intro}</p>
             </div>
         </div>
         

@@ -1,10 +1,11 @@
-import React, { useContext, useRef,useEffect } from 'react'
+import React, { useContext,useState, useRef,useEffect } from 'react'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import Linkify from 'react-linkify';
 import ChatActive from '../../../Context/ChatActive';
 import { FirebaseContext } from '../../../Firebase';
 import Ripple from '../../../loader/Ripple';
 import TimeAgo from '../../../TimeAgo';
-import { deleteSpecificMessage,checkSeen } from '../../ExtraFunction/FirebaseFunction';
+import { deleteSpecificMessage,checkSeen,decrypt} from '../../ExtraFunction/FirebaseFunction';
 
 export default function MainMessageBoard() {
     //getting data from the local state
@@ -51,6 +52,7 @@ export default function MainMessageBoard() {
                             type={message.type} 
                             auth={firebase.auth} 
                             msg={message.message}
+                            profileData={profileData}
                             firestore={firestore}
                             seen={message.seen}  
                             other={profileData.uid}
@@ -64,7 +66,8 @@ export default function MainMessageBoard() {
     )
 }
 
-const ShowMessage = ({msg,createdAt,auth,from,photo,seen,firestore,id,roomid,other}) => {
+const ShowMessage = ({msg,createdAt,auth,from,photo,seen,firestore,id,roomid,other,profileData}) => {
+    const [key,setKey] = useState(Array.from(new Set(profileData.name.split(' ')[0]+auth.currentUser.displayName.split(' ')[0])).sort().join(''));
     const messageClass = from===auth.currentUser.uid?'sent w3-animate-left':'recieve w3-animate-zoom';
     const hideTick = from===auth.currentUser.uid?'visible':'hidden';
     const seenTick = seen?'#5DADE2':'grey';
@@ -74,9 +77,9 @@ const ShowMessage = ({msg,createdAt,auth,from,photo,seen,firestore,id,roomid,oth
         <div className={`message  ${messageClass}`}>
             <img src={photo} alt="message"/>
             <div className="para">
-                {msg} 
+                <Linkify>{decrypt(key,msg)}</Linkify> 
                 <i className="fas fa-trash-alt hideIcon" 
-                onClick={()=>deleteSpecificMessage(firestore,roomid,id,other,auth)}></i>
+                onClick={()=>deleteSpecificMessage(firestore,roomid,id,other,auth,key)}></i>
                 {
                     createdAt?
                     <div>

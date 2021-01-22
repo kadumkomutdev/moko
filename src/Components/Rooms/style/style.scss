@@ -61,6 +61,7 @@ $light_color : #7393ad;
                         align-items: center;
                         z-index: 3;
                         .para{
+                            word-wrap: break-word;
                             padding:12px;
                             border-radius: 12px;
                             margin-bottom: 20px;
@@ -84,7 +85,15 @@ $light_color : #7393ad;
                         z-index: 3;
                         .para {
                             background: $light_color;
-                            border-top-right-radius: 0px;    
+                            word-wrap: break-word;
+                            border-top-right-radius: 0px;   
+                            a {
+                                font-weight: bold;
+                                &:hover {
+                                    color:rgb(221, 48, 48);
+                                }
+                            }
+                            
                         }
                     }
                     
@@ -94,6 +103,14 @@ $light_color : #7393ad;
                         .para{
                             background:white;
                             border-top-left-radius: 0px;       
+                            a{
+                                color:red;
+                                font-weight: bold;
+                                &:hover {
+                                    color:#ee1935;
+
+                                }
+                            }
                         }
                     }
                 }

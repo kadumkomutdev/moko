@@ -28,10 +28,13 @@
   -webkit-box-flex: 3;
       -ms-flex-positive: 3;
           flex-grow: 3;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   padding: 15px;
-  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: 4px;
+  font-size: 1.6rem;
 }
 
 .developer-name-big {
@@ -76,7 +79,37 @@
 
 @media screen and (max-width: 1159px) {
   .developer-name-big {
-    font-size: 50px;
+    font-size: 40px;
+  }
+  .developer-name-big i {
+    font-size: 45px;
+  }
+}
+
+@media screen and (max-width: 830px) {
+  .developer-name-big {
+    font-size: 30px;
+  }
+  .developer-name-big i {
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .developer-name-big {
+    font-size: 20px;
+  }
+  .developer-name-big i {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .developer-name-big {
+    font-size: 13px;
+  }
+  .developer-name-big i {
+    font-size: 30px;
   }
 }
 /*# sourceMappingURL=Developer.css.map */

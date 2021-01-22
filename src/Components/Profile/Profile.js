@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import profile from './profile.jpg'
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import Modal from './Modal';
+import Linkify from 'react-linkify';
 
 export default function Profile({match}) {
     const firebase = useContext(FirebaseContext);
@@ -249,6 +250,39 @@ export default function Profile({match}) {
           })
     }
 
+    const updateWebsite = () =>{
+        Swal.fire({
+            title:"Website",
+            input:"text",
+            inputPlaceholder:"Enter your website",
+            inputValue:user.website,
+            showLoaderOnConfirm:true,
+            inputValidator:value=>{
+                if(!value){
+                   return "You need to input something!"
+                }
+                if(value.length>40){
+                    return "Enter input less than 40 characters, try removing https"
+                }
+                if(value===user.website) return "Its same, duh!"
+            },
+            preConfirm:async(value)=>{
+                return await firestore.collection('users').doc(other).update({
+                    website:value
+                }).then(res=>{
+                    return "done"
+                }).catch(err=>{
+                    Swal.showValidationMessage('Some error occured');
+                })
+            },
+            confirmButtonText:"Update Website <i class='fas fa-edit'></i>"
+        }).then(result=>{
+            if(result.value==="done"){
+                Swal.fire('','Website Updated','success');
+            }
+        })
+    }
+
     return (
         <div className="profile-section w3-background">
             {isOpenModal?<Modal setIsOpenModal={setIsOpenModal} firebase={firebase}/>:null}
@@ -275,7 +309,7 @@ export default function Profile({match}) {
                 <div className="w3-large w3-text-light-grey w3-margin-top"
                     style={{display:"flex",justifyContent:"flex-start",alignItems:"center"}}>
                    <i className="fas fa-quote-left w3-text-red w3-small w3-margin-right" style={{alignSelf:"flex-start"}}></i> 
-                   <p className="w3-text-grey">
+                   <p className="w3-text-grey w3-large">
                         {user?user.bio?user.bio:"no status":"display status"}
                     {
                        other===auth.currentUser.uid?
@@ -290,14 +324,14 @@ export default function Profile({match}) {
             </div>
             {/* end of top */}
 
-            <div className="profile-info w3-white w3-large w3-padding-large" >
+            <div className="profile-info w3-white w3-padding-large" >
                     <div className="profile-info-grid">
-                        <div className="item">
+                        <div className="item ">
                             <div className="w3-dark w3-padding-medium">
                                 GENDER {other===auth.currentUser.uid?
                                 <i onClick={updateGender} className="fas fa-edit w3-right w3-hover-text-orange"></i>:null}
                             </div>
-                            <div className="w3-padding-large w3-background w3-xlarge w3-text-grey" style={{letterSpacing:"1px"}}>
+                            <div className="w3-padding-large w3-background w3-large w3-text-grey" style={{letterSpacing:"1px"}}>
                                 <b>{(user&&user.gender)||"Not updated"}</b>
                             </div>
                         </div>
@@ -305,7 +339,7 @@ export default function Profile({match}) {
                             <div className="w3-dark w3-padding-medium">
                                 BIRTHDAY{other===auth.currentUser.uid?<i onClick={updateBirthday} className="fas fa-edit w3-right w3-hover-text-orange"></i>:null}
                             </div>
-                            <div className="w3-padding-large w3-background w3-xlarge w3-text-grey" style={{letterSpacing:"1px"}}>
+                            <div className="w3-padding-large w3-background w3-large w3-text-grey" style={{letterSpacing:"1px"}}>
                                 <b>{(user&&user.birthday)||"Not updated"}</b>
                             </div>
                         </div>
@@ -313,8 +347,16 @@ export default function Profile({match}) {
                             <div className="w3-dark w3-padding-medium">
                                RELATIONSHIP {other===auth.currentUser.uid?<i onClick={updateRelationship} className="fas fa-edit w3-right w3-hover-text-orange"></i>:null}
                             </div>
-                            <div className="w3-padding-large w3-background w3-xlarge w3-text-grey" style={{letterSpacing:"1px"}}>
+                            <div className="w3-padding-large w3-background w3-large w3-text-grey" style={{letterSpacing:"1px"}}>
                                 <b>{(user&&user.relationship)||"Not updated"}</b>
+                            </div>
+                        </div>
+                        <div className="item">
+                            <div className="w3-dark w3-padding-medium">
+                               WEBSITE {other===auth.currentUser.uid?<i onClick={updateWebsite} className="fas fa-edit w3-right w3-hover-text-orange"></i>:null}
+                            </div>
+                            <div className="myWebsite w3-padding-large w3-background w3-large w3-text-grey" style={{letterSpacing:"1px"}}>
+                                <Linkify><b>{(user&&user.website)||"Not updated"}</b></Linkify>
                             </div>
                         </div>
                     </div>

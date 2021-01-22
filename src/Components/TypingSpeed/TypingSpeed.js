@@ -6,6 +6,7 @@ import {FirebaseContext} from '../Firebase'
 import {useCollectionData, useDocumentData} from 'react-firebase-hooks/firestore'
 import TypingSpeedBoard from './TypingSpeedBoard';
 import Ripple from '../loader/Ripple'
+import {navigateProfile} from '../Chat/ExtraFunction/ExtraFunction'
 
 export default function TypingSpeed() {
     const query = useQuery();
@@ -29,7 +30,8 @@ export default function TypingSpeed() {
                     <i className="fa fa-home"></i>
                 </button>
                 Typing speed 
-                <button onClick={()=>history.push('/home/typingspeed?start=ranking')} title="Check your rankings" className="w3-margin-left w3-button w3-round-large w3-red w3-hover-dark-red">
+                <button onClick={()=>history.push('/home/typingspeed?start=ranking')} title="Check your rankings" 
+                    className="w3-margin-left w3-button w3-round-large w3-green w3-hover-dark-green">
                    <i className="far fa-chart-bar"></i> Ranking
                 </button>
             </h1>    
@@ -40,7 +42,7 @@ export default function TypingSpeed() {
                 <div className="typingspeed-start w3-center  w3-card-4">
                     <h2 className="w3-text-green">LETS DO IT <i className="far fa-hand-peace"></i></h2>
                     <p className="w3-margin-top w3-text-green">Compete with all the typist around moko universe and enroll your name to the list of moko typister.</p>
-                    <button onClick={startTypingSpeed} className="btn-circle w3-large w3-margin-bottom  w3-margin-top">
+                    <button onClick={startTypingSpeed} className="btn-circle  w3-large w3-margin-bottom  w3-margin-top">
                         Start
                     </button>
 
@@ -65,12 +67,12 @@ const Ranking = ({firebase}) =>{
     const [ranking,loading] = useCollectionData(rankingRef,{idField:"id"});
     return (
         <div className="typingspeed-ranking">
-          <div className="typingspeed-ranking-container w3-margin-top w3-dark">
-            <ol>
+          <div className="typingspeed-ranking-container w3-margin-top">
+            <ol className="w3-ul">
                 {
                     loading?<Ripple />:
                         ranking.map(user=>(
-                            <List wpm={user.wordPerMinute} accuracy={user.accuracy} key={user.id} photo={user.photo} uid={user.uid} name={user.name}/>
+                            <List wpm={user.wordPerMinute} uid={user.uid} accuracy={user.accuracy} key={user.id} photo={user.photo} uid={user.uid} name={user.name}/>
                         ))
                 }
             </ol>
@@ -79,10 +81,14 @@ const Ranking = ({firebase}) =>{
     );
 }
 
-const List = ({wpm,name,photo,accuracy})=>{
+const List = ({wpm,name,photo,accuracy,uid})=>{
+    const history = useHistory();
     return(
-        <li className="w3-margin-bottom">
-            <img alt={name} src={photo} className="w3-circle w3-margin-right" style={{width:"50px",height:"50px"}}/>
+        <li className="w3-hover-light-grey w3-white w3-border-bottom w3-padding-large">
+            <img alt={name}  
+                onClick={()=>navigateProfile(name,photo,uid,history)} 
+                src={photo} 
+                className="w3-circle w3-margin-right w3-hover-sepia" style={{width:"50px",height:"50px",cursor:'pointer'}}/>
             <span className="w3-margin-right">{name}</span>
             <span className="w3-margin-right">{wpm}wpm</span>
             <span>{accuracy}%accuracy</span>

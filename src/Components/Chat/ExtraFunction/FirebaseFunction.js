@@ -1,6 +1,22 @@
 import {NotificationManager} from 'react-notifications'
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import {useLocation} from 'react-router';
 
+export const capitalizeEachFirstLetter = (s) => {
+    if (typeof s !== 'string') return ''
+
+    const words = s.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+    }
+
+    return words.join(" ");
+}
+
+export function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 //show challenge of tictactoe if other player sent a challenge in topBar.js
 export const showChallengeTicTacToe =  (accept,decline,photo,name) =>{
     Swal.fire({
@@ -95,7 +111,7 @@ export const sendChallengeTicTacToe = async(setChallengeButton,ref,auth,gameid,f
             
         }).catch(error=>{
             setChallengeButton("Challenge");
-            alert("alert challenging");
+            console.log("alert challenging");
         })
 }
 //tic tac toe accept and decline in topbar.js
@@ -121,7 +137,7 @@ export const tictactoeAccept = (firestore,id,challenge,auth,history)=>{
 //-----------------------------------
 
 //message sent by input box in chat
-export const sentMessage = (id,formValue,setFormDisable,firestore,profileData,firebase,setFormValue,inputRef,setInputFocus) =>{
+export const sentMessage = (id,formValue,setFormDisable,firestore,profileData,firebase,setFormValue,inputRef,setInputFocus,key) =>{
         if(formValue===""){
             NotificationManager.warning('Enter some text in the input box','',4000);
             return;
@@ -136,7 +152,7 @@ export const sentMessage = (id,formValue,setFormDisable,firestore,profileData,fi
         var roomRecentMessageRefOther = firestore.collection('rooms').doc(id).collection('userRooms').doc(profileData.roomid);
 
         batch.set(newMessageRef, {
-            message : formValue,
+            message : encrypt(key,formValue),
             from : firebase.auth.currentUser.uid,
             createdAt : firebase.firebase.firestore.FieldValue.serverTimestamp(),
             photo :  firebase.auth.currentUser.photoURL,
@@ -149,10 +165,13 @@ export const sentMessage = (id,formValue,setFormDisable,firestore,profileData,fi
             res = formValue.slice(0, 19)+"...";
         else 
             res = formValue;
-        batch.update(roomRecentMessageRef,{"message" : res,"createdAt" : firebase.firebase.firestore.FieldValue.serverTimestamp()});
-        batch.update(roomRecentMessageRefOther,{"message" : res,"createdAt" : firebase.firebase.firestore.FieldValue.serverTimestamp()});
-
-        batch.commit().then(()=>{
+        //updating the message on the left side of message list    
+        batch.update(roomRecentMessageRef,{"message" : res,"createdAt" : firebase.firebase.firestore.FieldValue.serverTimestamp(),"seen":true});
+        batch.update(roomRecentMessageRefOther,{"message" : res,"createdAt" : firebase.firebase.firestore.FieldValue.serverTimestamp(),"seen":false,"count":firebase.firebase.firestore.FieldValue.increment(1)});
+        //incrementing the notification count chat to show in the top bar of the user
+        batch.update(firestore.collection('notificationCount').doc(profileData.uid),{"chatCount":firebase.firebase.firestore.FieldValue.increment(1)});
+        //committing the batch
+        batch.commit().then(async()=>{
             setFormValue("");
             setFormDisable(false);
             inputRef.current.focus();
@@ -165,7 +184,7 @@ export const sentMessage = (id,formValue,setFormDisable,firestore,profileData,fi
 }
 
 //delete a specific message in chat
-export const deleteSpecificMessage = (firestore,roomid,id,other,auth) =>{
+export const deleteSpecificMessage = (firestore,roomid,id,other,auth,key) =>{
     Swal.fire({
         text: 'Do you want to delete this message?',
         icon: 'question',
@@ -191,11 +210,13 @@ export const deleteSpecificMessage = (firestore,roomid,id,other,auth) =>{
                 var batch = firestore.batch();
                 snap.forEach(data =>{
                     //update the rooms
-                    batch.update(firestore.collection("rooms").doc(other).collection('userRooms').doc(roomid),{"message":data.data().message});
-                    batch.update(firestore.collection("rooms").doc(auth.currentUser.uid).collection('userRooms').doc(roomid),{"message":data.data().message});
+                    batch.update(firestore.collection("rooms").doc(other).collection('userRooms').doc(roomid),
+                    {"message":decrypt(key,data.data().message)});
+                    batch.update(firestore.collection("rooms").doc(auth.currentUser.uid).collection('userRooms').doc(roomid),
+                    {"message":decrypt(key,data.data().message)});
                 })
                 batch.commit().catch(err=>{
-                    alert("error updating in the rooms");
+                    console.log("error updating in the rooms");
                 })
             })
             Swal.fire('Message Deleted','','success');
@@ -214,11 +235,21 @@ export const checkSeen = async(firestore,roomid,auth) =>{
                 batch.update(firestore.collection('messages').doc(roomid).collection('userMessages').doc(Doc.id),{"seen":true});
             }
         })
+        batch.update(firestore.collection('rooms').doc(auth.currentUser.uid).collection('userRooms').doc(roomid),{"seen":true,"count":0});
         batch.commit();
     }).catch(error=>{
         NotificationManager.error('Error seeing the message','',3000);
     });
 };
+
+//seen chat count
+export const checkChatCount = async(firestore,auth)=>{
+    await firestore.collection('notificationCount').doc(auth.currentUser.uid).set({
+        chatCount:0
+    }).catch(err=>{
+        console.log("Error checking the chat count "+err);
+    })
+}
 
 // Delete contact and all the messages and any interaction
 export const disconnectContact = async(setDisconnectDisable,setMessageDisable,setDisconnect,firestore,auth,uid,setProfileData,name,history) =>{
@@ -226,34 +257,6 @@ export const disconnectContact = async(setDisconnectDisable,setMessageDisable,se
         setMessageDisable(true);
         setDisconnect("deleting");
         
-        const batch = firestore.batch();
-
-        //deleting from the logged in contacts
-        const deleteContactRef= firestore.collection('contacts').doc(auth.currentUser.uid).collection('userRooms').doc(uid);
-        batch.delete(deleteContactRef);
-        //deleting from the other in contacts
-        const deleteContactRefOther = firestore.collection('contacts').doc(uid).collection('userRooms').doc(auth.currentUser.uid);
-        batch.delete(deleteContactRefOther);
-
-        //deleting from the logged in rooms
-        const deleteRoomRef = await firestore.collection('rooms').doc(auth.currentUser.uid).collection('userRooms').where('uid','==',uid).get();
-        if(!deleteRoomRef.empty){
-            var data = deleteRoomRef.docs[0];
-            batch.delete(firestore.collection('rooms').doc(auth.currentUser.uid).collection('userRooms').doc(data.id));
-            await firestore.collection('messages').doc(data.id).collection('userMessages').get().then(snapshot=>{
-                snapshot.forEach(function(Doc){
-                    batch.delete(firestore.collection('messages').doc(data.id).collection('userMessages').doc(Doc.id));
-                })
-            })
-            batch.delete(firestore.collection('messages').doc(data.id));
-        }
-        //deleting from the other in rooms
-        const deleteRoomRefOther = await firestore.collection('rooms').doc(uid).collection('userRooms').where('uid','==',auth.currentUser.uid).get();
-        if(!deleteRoomRefOther.empty){
-            var dataOther = deleteRoomRefOther.docs[0];
-            batch.delete(firestore.collection('rooms').doc(uid).collection('userRooms').doc(dataOther.id));
-        }
-
         Swal.fire({
             text: 'Do you want to disconnect with '+name+'?',
             icon: 'question',
@@ -261,7 +264,34 @@ export const disconnectContact = async(setDisconnectDisable,setMessageDisable,se
             showLoaderOnConfirm:true,
             confirmButtonText: 'Yes, Delete',
             cancelButtonText: 'No, cancel',
-            preConfirm : ()=>{
+            preConfirm : async()=>{
+                const batch = firestore.batch();
+
+                //deleting from the logged in contacts
+                const deleteContactRef= firestore.collection('contacts').doc(auth.currentUser.uid).collection('userRooms').doc(uid);
+                batch.delete(deleteContactRef);
+                //deleting from the other in contacts
+                const deleteContactRefOther = firestore.collection('contacts').doc(uid).collection('userRooms').doc(auth.currentUser.uid);
+                batch.delete(deleteContactRefOther);
+
+                //deleting from the logged in rooms
+                const deleteRoomRef = await firestore.collection('rooms').doc(auth.currentUser.uid).collection('userRooms').where('uid','==',uid).get();
+                if(!deleteRoomRef.empty){
+                    var data = deleteRoomRef.docs[0];
+                    batch.delete(firestore.collection('rooms').doc(auth.currentUser.uid).collection('userRooms').doc(data.id));
+                    await firestore.collection('messages').doc(data.id).collection('userMessages').get().then(snapshot=>{
+                        snapshot.forEach(function(Doc){
+                        batch.delete(firestore.collection('messages').doc(data.id).collection('userMessages').doc(Doc.id));
+                        })
+                    })
+                    batch.delete(firestore.collection('messages').doc(data.id));
+                }
+                //deleting from the other in rooms
+                const deleteRoomRefOther = await firestore.collection('rooms').doc(uid).collection('userRooms').where('uid','==',auth.currentUser.uid).get();
+                if(!deleteRoomRefOther.empty){
+                    var dataOther = deleteRoomRefOther.docs[0];
+                    batch.delete(firestore.collection('rooms').doc(uid).collection('userRooms').doc(dataOther.id));
+                }
                 return batch.commit()
                 .then((response)=>{
                     setProfileData({
@@ -305,9 +335,9 @@ export const connectContact = async(roomRefAuth,uid,setMessageDisable,setMessage
             name:name,
             photo:picture,
             uid:uid,
-            roomid:snapshot.id
+            roomid:snapshot.id,
         })
-        history.push(`/home/chat/${uid}`)
+        history.push(`/home/chat/${uid}?name=${name}`)
         NotificationManager.success('You have already initiated message with '+name,'',3000);
     }else {
         var batch = firestore.batch();
@@ -339,9 +369,9 @@ export const connectContact = async(roomRefAuth,uid,setMessageDisable,setMessage
                 name:name,
                 photo:picture,
                 uid:uid,
-                roomid:uniqueId.id
+                roomid:uniqueId.id,
             })
-            history.push(`/home/chat/${uid}`)
+            history.push(`/home/chat/${uid}?name=${name}`)
             NotificationManager.success('Message Initiated with '+name,'',4000);
         }).catch(error=>{
             setMessageDisable(false);
@@ -353,19 +383,29 @@ export const connectContact = async(roomRefAuth,uid,setMessageDisable,setMessage
 
 //add to contacts list
 export const addToContact = async(setDisable,setButtonText,firestore,userRef,uid,username,photo,auth,firebase,setPresent) =>{
-    setDisable(true);
+        setDisable(true);
         setButtonText("Adding...");
-        var batch = firestore.batch();
-
-        batch.set(userRef.doc(uid),{username: username,photo:photo,uid:uid});
-        batch.set(firestore
-            .collection('contacts')
-            .doc(uid)
-            .collection('userRooms')
-            .doc(auth.currentUser.uid),
-            {username:auth.currentUser.displayName,photo:auth.currentUser.photoURL,uid:auth.currentUser.uid});
         
-        await batch.commit()
+
+        Swal.fire({
+            title:"Add "+username+" to contacts?",
+            icon:"question",
+            confirmButtonText:"Add",
+            showCancelButton:true,
+            cancelButtonText:"Cancel",
+            preConfirm:async()=>{
+                var batch = firestore.batch();
+
+                //adding to your contacts
+                batch.set(userRef.doc(uid),{username: username,photo:photo,uid:uid});
+                //adding to other user contacts
+                batch.set(firestore
+                    .collection('contacts')
+                    .doc(uid)
+                    .collection('userRooms')
+                    .doc(auth.currentUser.uid),
+                    {username:auth.currentUser.displayName,photo:auth.currentUser.photoURL,uid:auth.currentUser.uid});
+                return await batch.commit()
                 .then(async()=>{
                     //adding to notification
                     await firestore.collection('notification').doc(uid).collection('userNotification')
@@ -378,10 +418,23 @@ export const addToContact = async(setDisable,setButtonText,firestore,userRef,uid
                         count : increment
                     })
                     setPresent(true);
-                    NotificationManager.success(username+' added to contacts','',3000);
                 }).catch(error=>{
-                    alert("error in adding friends"+error);
+                    console.log("error in adding friends"+error);
                 })
+            },
+            showLoaderOnConfirm:true
+        }).then(res=>{
+            if(res.value){
+                Swal.fire('','Added to contacts','success');
+            }else if(res.isDismissed){
+                setDisable(false);
+                setButtonText("Add+");
+            }
+        })
+
+       
+        
+        
 }
 
 //Toggle online and offline in Game.js
@@ -395,6 +448,7 @@ export const toggleOnlineOffline = (checkBox,query) =>{
             showCancelButton: true,
             showLoaderOnConfirm:true,
             confirmButtonText: 'Yes, Do it',
+            confirmButtonColor:checkBox?"#f44336":"#4CAF50",
             cancelButtonText: 'No, cancel',
             preConfirm : ()=>{
                  return query.update({ online : !checkBox })
@@ -408,7 +462,11 @@ export const toggleOnlineOffline = (checkBox,query) =>{
             }
           }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire('','You are '+text,'success');
+                Swal.fire({
+                    title:'You are '+text,
+                    icon:"success",
+                    confirmButtonColor:"#4CAF50"
+                })
             }
           })
 }
@@ -427,11 +485,90 @@ export const initiateOnlineOffline = async(query,auth)=>{
                 challengePhoto : "",
                 score : 1500
             }).catch(err=>{
-                alert("error adding new game active")
+                console.log("error adding new game active")
             })
         }
     }).catch(err=>{
-        alert("alert inserting new data in the game active");
+        console.log("alert inserting new data in the game active");
     })
 }
 
+function calculateOrder(key,set){
+    const keyArray = [...key].sort();
+    //getting the order of the key
+    let order = [];
+    //for encryption
+    if(set){
+        for(let i=0;i<key.length;i++){
+            order[i] = key.indexOf(keyArray[i]);
+        }
+        return order;
+    }
+    //for decryption
+    for(let i=0;i<key.length;i++){
+        order[i] = keyArray.indexOf(key[i]);
+    }
+    return order;
+}
+function encrypt(key,plain){
+    const order = calculateOrder(key,true);
+    //calculating the row 
+    var pLength = plain.length;
+    var kLength = key.length;
+    var arrROw = (pLength%kLength)===0?(pLength/kLength):Math.floor((pLength/kLength))+1;
+    //initialising the array to  store the intial value before encrypting
+    let arr = [];
+    //Storing the plain text in 2d array
+    var count = 0;
+    for(let i=0;i<arrROw;i++){
+        let tempArr = [];
+        for(let j=0;j<kLength;j++){
+            //push dollar sign if there is space
+            //after the plain text is finished inserting 
+            if(count>=pLength) {
+                tempArr.push('$');
+                continue;
+            }
+            //if there is space between plain text
+            //insert dollar sign
+            //else insert the character
+            if(plain[count]===' '){
+                tempArr.push('$');
+            }else{
+                tempArr.push(plain[count]);
+            }
+            count++
+        }
+        arr.push(tempArr);
+        if(count===pLength) break;
+    }
+    
+    //encrypting
+    let encrypted = [];
+    //push the rows according the order of key
+    for(let i=0;i<kLength;i++){
+        for(let j=0;j<arrROw;j++){
+            encrypted.push(arr[j][order[i]]);
+        }
+    }
+
+    return encrypted.join('');    
+}
+export function decrypt(key,cipher){
+    //calculating the order
+    const order = calculateOrder(key,false);
+    //calculating the row 
+    var arrRow = (cipher.length/key.length);
+
+    var decrypted = [];
+    for(let i=0;i<arrRow;i++){
+        for(let j=0;j<key.length;j++){
+            if(cipher[(order[j]*arrRow)+i]==='$'){
+                decrypted.push(' ')
+                continue;
+            }
+            decrypted.push(cipher[(order[j]*arrRow)+i])
+        }
+    }
+    return decrypted.join('');
+}

@@ -6,12 +6,13 @@ import 'firebase/storage'
 
 const config = {
     apiKey: "AIzaSyA573tvELEEwnOjgmFKd0KDSBN99HVKOHE",
-	authDomain: "fir-project-9bafb.firebaseapp.com",
-	databaseURL: "https://fir-project-9bafb.firebaseio.com",
-	projectId: "fir-project-9bafb",
-	storageBucket: "fir-project-9bafb.appspot.com",
-	messagingSenderId: "277926580088",
-	appId: "1:277926580088:web:4d26de0ad307d9efa9428d"
+    authDomain: "fir-project-9bafb.firebaseapp.com",
+    databaseURL: "https://fir-project-9bafb.firebaseio.com",
+    projectId: "fir-project-9bafb",
+    storageBucket: "fir-project-9bafb.appspot.com",
+    messagingSenderId: "277926580088",
+    appId: "1:277926580088:web:4d26de0ad307d9efa9428d",
+    measurementId: "G-ZWPSET7WCH"
 };
 
 class Firebase{

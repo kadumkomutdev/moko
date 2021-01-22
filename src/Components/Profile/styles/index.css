@@ -62,6 +62,15 @@
   grid-gap: 20px;
 }
 
+.profile-section .profile-info .profile-info-grid .myWebsite a {
+  color: #972727;
+  font-size: 1rem;
+}
+
+.profile-section .profile-info .profile-info-grid .myWebsite a:hover {
+  color: #e02c2c;
+}
+
 @media screen and (max-width: 910px) {
   .profile-section .profile-info .profile-info-grid {
     -ms-grid-columns: 1fr 1fr;

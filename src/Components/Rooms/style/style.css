@@ -82,6 +82,7 @@
 }
 
 .room-section .display-rooms .room-right .right-content .right-middle .message .para {
+  word-wrap: break-word;
   padding: 12px;
   border-radius: 12px;
   margin-bottom: 20px;
@@ -110,7 +111,16 @@
 
 .room-section .display-rooms .room-right .right-content .right-middle .sent .para {
   background: #7393ad;
+  word-wrap: break-word;
   border-top-right-radius: 0px;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .sent .para a {
+  font-weight: bold;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .sent .para a:hover {
+  color: #dd3030;
 }
 
 .room-section .display-rooms .room-right .right-content .right-middle .recieve {
@@ -121,6 +131,15 @@
 .room-section .display-rooms .room-right .right-content .right-middle .recieve .para {
   background: white;
   border-top-left-radius: 0px;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .recieve .para a {
+  color: red;
+  font-weight: bold;
+}
+
+.room-section .display-rooms .room-right .right-content .right-middle .recieve .para a:hover {
+  color: #ee1935;
 }
 
 .room-section .display-rooms .room-right .right-content .showGroup-input {

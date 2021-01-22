@@ -32,7 +32,8 @@ const Home = () =>{
         name:null,
         photo:null,
         uid : null,
-        roomid:null
+        roomid:null,
+        messageKey:'-----BEGIN RSA PRIVATE KEY-----MIIBOQIBAAJBAIOYv0b0r+Wcd4w9rEbwpdJoEGxHBAXergQb3IO6G3E0fdnTefMJxkrE1r9juJcAaOn/D4XCGs1w2GbhddfNz3UCAwEAAQJAGrEn0w+cgfk7smFsCTOUntnmwt+grEQfjcvM7ZcZK9vJDrqsxw7/qptXga1iGdhgF1EL8iWhK1eCx5KwulLhwQIhAPbZMaJxtE2OxoaY5RLGa9zZSRljP54jGGfo9AZyI8YxAiEAiHm2yPhpd4xFc25eYAmnDjfv7HuRbN/LFNwIlV/HWIUCIG7m/cnB1APUVZU7NA/PXb6HULQ7RuXBVsG4g4ox1ajBAiBWyoDRwhjgbBZm2FOwY7MXub8c92B+irwN4fibdjPCOQIgTMyvPutXfaRlgd+SKisj+mLXs1A9wXKApu0YYCs0tEg=-----END RSA PRIVATE KEY-----'
     });
 
 
@@ -63,7 +64,7 @@ const Home = () =>{
                     <Route path="/home/profile" exact component={Profile}/>
                     <Route path="/home/profile/:id" component={Profile}/>
                     <Route path="/home/tictactoe/:id" component={TicTacToe}/>
-                    <Route path="/home/4snaps" component={FourSnaps}/>
+                    <Route path="/home/broadcast" component={FourSnaps}/>
                     <Route path="/home/rooms"   component={Rooms}/>
                     <Route path="/home/typingspeed" component={TypingSpeed}/>
                     <Route path="/home/chess" component={Chess}/>

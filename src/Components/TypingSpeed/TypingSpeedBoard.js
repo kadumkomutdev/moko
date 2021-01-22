@@ -12,6 +12,7 @@ const TypingSpeedBoard = ({quote,history,firebase,score}) =>{
     const outRef = useRef();
     const inRef = useRef();
     const [ duration, setDuration ] = useState(60);
+    const [progress, setProgress] = useState(0);
 
     const [hide,setHide] = useState("block");
     
@@ -43,7 +44,9 @@ const TypingSpeedBoard = ({quote,history,firebase,score}) =>{
 		const seconds = now + duration * 1000
 		interval = setInterval(() => {
 			const secondLeft = Math.round((seconds - Date.now()) / 1000)
-			setDuration(secondLeft)
+            setDuration(secondLeft)
+            const progressLeft = (60-secondLeft)*1.67+progress;
+            setProgress(progressLeft)
 			if (secondLeft <= 0) {
 				handleEnd()
 			}
@@ -142,6 +145,9 @@ const TypingSpeedBoard = ({quote,history,firebase,score}) =>{
 
     return (
         <div className="typingspeed-board-main w3-center">
+            <div className="w3-border typingGrid-0 w3-grey">
+                <div className="w3-red" style={{height:"10px",width:`${progress}%`}}></div>
+            </div>
             <div className="item typingGrid-1">WPM<p>{wpm}</p></div>
             <div className="item typingGrid-2">CPM<p>{cpm}</p></div>
             <div className="item typingGrid-3">BestScore<p>{score&&score.wordPerMinute}</p></div>

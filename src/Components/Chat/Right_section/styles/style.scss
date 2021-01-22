@@ -1,0 +1,49 @@
+.chat-welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    h1 {
+        color:#4a6e8b;
+        font-size: 60px;
+        display: flex;
+        align-items: center;
+
+        .chat-welcome-moko {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            .chat-welcome-moko-secure {
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .chat-welcome {
+        h1{
+            font-size: 45px;
+            .chat-welcome-moko {
+                .chat-welcome-moko-secure {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 877px) {
+    .chat-welcome {
+        h1{
+            font-size: 30px;
+            .chat-welcome-moko {
+                .chat-welcome-moko-secure {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

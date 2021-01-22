@@ -2,7 +2,7 @@ import React, { useContext, useState,useRef } from 'react'
 import { withRouter } from 'react-router';
 import ChatActive from '../../../Context/ChatActive'
 import { FirebaseContext } from '../../../Firebase';
-import { sentMessage } from '../../ExtraFunction/FirebaseFunction';
+import { sentMessage, useQuery } from '../../ExtraFunction/FirebaseFunction';
 
  function InputContainer({match}) {
     const inputRef = useRef();
@@ -13,10 +13,13 @@ import { sentMessage } from '../../ExtraFunction/FirebaseFunction';
     const [inputFocus,setInputFocus] = useState(true);
     const [formDisable, setFormDisable] = useState(false);
     const id = match.params.id;
-    
+    const query = useQuery();    
     const sendMessageT = (e) =>{
         e.preventDefault();
-        sentMessage(id,formValue,setFormDisable,firestore,profileData,firebase,setFormValue,inputRef,setInputFocus);
+        var userA = firebase.auth.currentUser.displayName.split(' ')[0];
+        var userB = query.get('name').split(' ')[0];
+        var key = Array.from(new Set(userA+userB)).sort().join('');
+        sentMessage(id,formValue,setFormDisable,firestore,profileData,firebase,setFormValue,inputRef,setInputFocus,key);
     }
 
     return (

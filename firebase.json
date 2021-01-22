@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site":"mokoapp",
     "public": "build",
     "ignore": [
       "firebase.json",

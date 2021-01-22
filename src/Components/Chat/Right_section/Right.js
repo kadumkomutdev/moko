@@ -4,6 +4,7 @@ import ChatActive from '../../Context/ChatActive';
 import MainContainer from './components/MainContainer';
 import GameContainer from './Game/GameContainer';
 import UserDirectoryContainer from './UserDirectory/UserDirectoryContainer';
+import './styles/style.css';
 
 const Right = ({match}) => {
         const {active}  = useContext(ChatActive);
@@ -35,14 +36,17 @@ const Right = ({match}) => {
 
 const Welcome = () =>{
     const mokoStyle = {
-        padding:"10px",
+        padding:"10px 15px",
         borderRadius:"20px"
     }
     return (
-        <div style={
-            {display:"flex",justifyContent:"center",alignItems:"center",height:"100%",width:"100%"}}>
-            <h1 style={{color:"#4a6e8b",fontSize:"60px"}} className="animate__animated animate__bounce w3-center">
-                Welcome To <span style={mokoStyle} className="w3-dark">MOKO</span>
+        <div className="chat-welcome w3-light-grey">
+            <h1 className="animate__animated animate__bounce w3-center">
+                <span style={{alignSelf:'flex-start',marginTop:"10px"}}>Welcome To&nbsp;</span>
+                <span className="chat-welcome-moko">
+                    <span style={mokoStyle} className="w3-dark">MOKO</span>
+                    <p className="chat-welcome-moko-secure w3-text-green" style={{marginTop:'5px'}}>ITS MORE SECURE NOW <i className="fas fa-lock"></i></p>
+                </span>
             </h1>
         </div>
     );

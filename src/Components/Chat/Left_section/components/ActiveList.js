@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 import { navigateProfile } from '../../ExtraFunction/ExtraFunction';
 import { connectContact, disconnectContact } from '../../ExtraFunction/FirebaseFunction';
 
+
 export default function ActiveList() {
     const firebase = useContext(FirebaseContext);
     const firestore = firebase.firestore; 
@@ -32,6 +33,7 @@ export default function ActiveList() {
                             userList?userList.map(user =>(
                                 <List 
                                 key={user.id} 
+                                messageKey={user.messageKey}
                                 firestore={firestore}
                                 auth={auth} 
                                 firebase={mainFirebase}
@@ -46,7 +48,7 @@ export default function ActiveList() {
     )
 }
 
-const List = ({name,picture,uid,auth,firestore,firebase}) => {
+const List = ({name,picture,uid,auth,firestore,firebase,messageKey}) => {
     const history = useHistory();
     
     const {setActive,setProfileData} = useContext(ChatActive);
@@ -67,7 +69,7 @@ const List = ({name,picture,uid,auth,firestore,firebase}) => {
     const [messageDisable,setMessageDisable] = useState(false);
 
     const connectT = () =>{
-        connectContact(roomRefAuth,uid,setMessageDisable,setMessage,setActive,setProfileData,name,picture,history,firestore,auth,firebase,setVisible);
+        connectContact(roomRefAuth,uid,setMessageDisable,setMessage,setActive,setProfileData,name,picture,history,firestore,auth,firebase,setVisible,messageKey);
     }
 
     const deleteContact = () =>{
@@ -76,7 +78,7 @@ const List = ({name,picture,uid,auth,firestore,firebase}) => {
 
 
     return(
-        <li className="w3-card w3-animate-bottom w3-hover-light-grey w3-white" 
+        <li className="w3-card w3-animate-bottom w3-white" 
             style={{visibility:visible,display:"flex",justifyContent:"start",alignItems:"space-around"}}>
             <div style={{display:"flex",justifyContent:"start",alignItems:"center"}}>
                 <img src={picture} alt={name} width="60px" onClick={()=>navigateProfile(name,picture,uid,history)} style={{cursor:'pointer'}} className="w3-circle w3-hover-sepia w3-margin-right" height="60px"/>
@@ -91,7 +93,7 @@ const List = ({name,picture,uid,auth,firestore,firebase}) => {
                     <button  
                         onClick={deleteContact} 
                         disabled={disconnectDisable} 
-                        className="w3-round-large w3-red w3-small w3-hover-grey w3-button w3-block w3-margin-left">{disconnect}</button>
+                        className="w3-round-large w3-red w3-small w3-hover-dark-red w3-button w3-block w3-margin-left">{disconnect}</button>
                 </div>
             </div>
         </li>

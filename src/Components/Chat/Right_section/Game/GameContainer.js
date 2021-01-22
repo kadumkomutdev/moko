@@ -10,8 +10,10 @@ import { nanoid } from 'nanoid';
 import { sendChallengeTicTacToe } from '../../ExtraFunction/FirebaseFunction';
 
 
+
 export default function GameContainer() {
     const history = useHistory();
+
     //sidebar
     const [sideBarOnline, setSideBarOnline] = useState(false);
     const openRightMenu = () =>{
@@ -21,24 +23,30 @@ export default function GameContainer() {
     
     return (
         <div style={{overflow:"auto"}}>
-            <h2 className="w3-center w3-green w3-padding-large" style={{position:"sticky",top:0,zIndex:1}}>Wanna Play Games?</h2>
+            <h2 className="w3-center w3-green w3-padding-large" style={{position:"sticky",top:0,zIndex:1}}>Wanna Play Games!</h2>
             <div className="w3-margin-top  gameContainer-grid" >
-                <div className=" w3-animate-right w3-hover-light-grey w3-card-2 w3-padding-large w3-white w3-center w3-hover-shadow">
+                <div className=" w3-animate-right w3-round-xxlarge  w3-card-2 w3-padding-large w3-white w3-center">
                     <p className="w3-xlarge w3-text-dark"><b>TIC TAC TOE</b></p>
                     <img src={tictactoe} alt="tictactoe" className="w3-margin-top" style={{width:"140px",height:"140px"}}/>
-                    <button className="w3-button w3-hover-dark-green w3-block w3-round-large w3-green w3-margin-top" onClick={openRightMenu}> Challenge Someone</button>     
+                    <button className="w3-button w3-hover-dark-green w3-block w3-round-large w3-green w3-margin-top" onClick={openRightMenu}> 
+                       <i className="fas fa-skull-crossbones"></i> Challenge
+                    </button>     
                 </div>
 
-                <div className=" w3-animate-right w3-card-2 w3-padding-large w3-grey w3-center w3-hover-shadow">
+                <div className=" w3-animate-right w3-round-xxlarge w3-card-2 w3-padding-large w3-grey w3-center">
                     <p className="w3-xlarge"><b>BINGO</b></p>
                     <img src={bingo} alt="bingo" className="w3-margin-top" style={{width:"140px",height:"140px"}}/>
-                    <button className="w3-button w3-block w3-white w3-margin-top" disabled> UPCOMING..</button>
+                    <button className="w3-button w3-block w3-white w3-margin-top" disabled> 
+                       <i className="fas fa-truck-loading"></i> UPCOMING...
+                    </button>
                 </div>
 
-                <div className=" w3-animate-right w3-padding-large w3-grey w3-center w3-hover-shadow">
+                <div className=" w3-animate-right w3-round-xxlarge w3-padding-large w3-grey w3-center">
                     <p className="w3-xlarge"><b>CHESS</b></p>
                     <img src={chess} alt="chess" className="w3-margin-top" style={{width:"140px",height:"140px"}}/>
-                    <button onClick={()=>history.push('/home/chess')} className="w3-button w3-block w3-white w3-margin-top" > Play</button>
+                    <button onClick={()=>history.push('/home/chess')} className="w3-button w3-block w3-white w3-margin-top" disabled> 
+                        <i className="fas fa-truck-loading"></i> UPCOMING...
+                    </button>
                 </div>
             </div>
             {/* side bar */}

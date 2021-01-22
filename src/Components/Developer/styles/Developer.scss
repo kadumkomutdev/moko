@@ -14,9 +14,11 @@
     }
     .developer-intro {
         flex-grow: 3;
-        align-self: flex-start;
-        padding: 15px; 
-        font-size: 1.4rem;       
+        align-self: center;
+        padding: 15px;
+        font-weight: bold;
+        letter-spacing: 4px;
+        font-size: 1.6rem;       
     }
 }
 
@@ -61,9 +63,35 @@
 // for the top big font
 @media screen and (max-width:1159px){
     .developer-name-big {
-        font-size: 50px;
+        font-size: 40px;
+    }
+    .developer-name-big i {
+        font-size:45px;
     }
 }
-
+@media screen and (max-width:830px){
+    .developer-name-big {
+        font-size: 30px;
+    }
+    .developer-name-big i {
+        font-size:40px;
+    }
+}
+@media screen and (max-width:670px){
+    .developer-name-big {
+        font-size: 20px;
+    }
+    .developer-name-big i {
+        font-size:30px;
+    }
+}
+@media screen and (max-width:500px){
+    .developer-name-big {
+        font-size: 13px;
+    }
+    .developer-name-big i {
+        font-size:30px;
+    }
+}
 //---------------------
 

@@ -15,7 +15,7 @@ export default function UserDirectoryContainer() {
     const [userList,loading] = useCollectionData(userListRef,{idField:"id"});
     return (
         <div className="userDirectory">
-            <h2 className="w3-padding-large w3-dark w3-center">Connect with friends you know <i className="fas fa-user-plus"></i></h2>
+            <h2 className="w3-padding-large w3-dark w3-center"><i className="fas fa-user-plus"></i> Connect with friends you know </h2>
             <div className=" userDirectory-user ">
                 {
                     loading?<div className="loading"><Circle /></div>:

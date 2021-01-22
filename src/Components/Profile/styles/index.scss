@@ -48,6 +48,16 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-gap:20px;
+
+            .myWebsite {
+                a {
+                    color:rgb(151, 39, 39);
+                    font-size: 1rem;
+                    &:hover {
+                        color:rgb(224, 44, 44);
+                    }
+                }
+            }
         }
     }
     @media screen and (max-width: 910px) {

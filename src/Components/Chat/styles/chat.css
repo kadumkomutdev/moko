@@ -118,9 +118,9 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding: 12px;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -137,19 +137,40 @@
   color: white;
 }
 
-.main-layer .sections .left .user-list .user .avatar {
+.main-layer .sections .left .user-list .user .avatar-name-description {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main-layer .sections .left .user-list .user .avatar-name-description .avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
 
-.main-layer .sections .left .user-list .user .avatar img {
+.main-layer .sections .left .user-list .user .avatar-name-description .avatar img {
   border-radius: 50%;
 }
 
-.main-layer .sections .left .user-list .user .name-description {
+.main-layer .sections .left .user-list .user .avatar-name-description .name-description {
+  justify-self: flex-start;
   padding-left: 17px;
   font-size: 0.9rem;
+}
+
+.main-layer .sections .left .user-list .user .chatCount {
+  float: right;
+}
+
+.main-layer .sections .left .user-list .user .chatCount p {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
 }
 
 .main-layer .sections .left .user-list .activeUser {
@@ -340,6 +361,17 @@
 .main-layer .sections .middle .main-message-board .sent .para {
   background: white;
   border-top-right-radius: 0px;
+  border-bottom-right-radius: 20px;
+  word-wrap: break-word;
+}
+
+.main-layer .sections .middle .main-message-board .sent .para a {
+  color: #7393ad;
+  font-weight: bold;
+}
+
+.main-layer .sections .middle .main-message-board .sent .para a:hover {
+  color: #ee1935;
 }
 
 .main-layer .sections .middle .main-message-board .recieve {
@@ -350,6 +382,16 @@
 .main-layer .sections .middle .main-message-board .recieve .para {
   background: #7393ad;
   border-top-left-radius: 0px;
+  border-bottom-left-radius: 20px;
+  word-wrap: break-word;
+}
+
+.main-layer .sections .middle .main-message-board .recieve .para a {
+  font-weight: bold;
+}
+
+.main-layer .sections .middle .main-message-board .recieve .para a:hover {
+  color: #ee1935;
 }
 
 .main-layer .sections .middle .input-container {
@@ -372,14 +414,29 @@
       -ms-flex-positive: 1;
           flex-grow: 1;
   display: block;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
   padding: 10px;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
   outline: none;
+  border: 1px solid #DDDDDD;
+}
+
+.main-layer .sections .middle .input-container .input:focus {
+  -webkit-box-shadow: 0 0 5px #51cbee;
+          box-shadow: 0 0 5px #51cbee;
+  border: 1px solid #51cbee;
 }
 
 .main-layer .sections .middle .input-container button {
   padding: 0 20px;
   color: white;
   background: #7393ad;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
   border: none;
   cursor: pointer;
 }
